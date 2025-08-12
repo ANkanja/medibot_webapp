@@ -44,7 +44,7 @@ def patient_detail(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id)
     return render(request, 'patient_detail.html', {'patient': patient})
 
-def new_visit(request, patient_id):
+def new_diagnosis(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id)
     if request.method == 'POST':
         form = VisitForm(request.POST)
@@ -55,11 +55,10 @@ def new_visit(request, patient_id):
             return redirect('patient_detail', patient_id=patient.id)
     else:
         form = VisitForm()
-    return render(request, 'new_visit.html', {'form': form, 'patient': patient})
+    return render(request, 'new_diagnosis.html', {'form': form, 'patient': patient})
 
 def visit_history(request, patient_id):
     patient = get_object_or_404(Patient, id=patient_id)
     visits = patient.visits.all()
     return render(request, 'visit_history.html', {'patient': patient, 'visits': visits})
-
 
