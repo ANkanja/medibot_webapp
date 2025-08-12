@@ -13,3 +13,9 @@ class VisitForm(forms.ModelForm):
     class Meta:
         model = Visit
         fields = ['symptoms', 'notes']
+
+
+
+
+
+
