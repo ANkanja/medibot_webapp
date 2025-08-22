@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . models import Patient
+from . models import Patient, LearningMaterial
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PatientForm, VisitForm
 
@@ -62,3 +62,8 @@ def visit_history(request, patient_id):
     visits = patient.visits.all()
     return render(request, 'visit_history.html', {'patient': patient, 'visits': visits})
 
+
+
+def training(request):
+    materials = LearningMaterial.objects.all()
+    return render(request, 'training.html', {'materials': materials})
