@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>New Referral</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Patient Name</label>
+            <input type="text" name="patient_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Age</label>
+            <input type="number" name="age" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Gender</label>
+            <select name="gender" class="form-control">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>Symptoms/Condition</label>
+            <textarea name="symptoms" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Referral Type</label><br>
+            <input type="radio" name="referral_type" value="Urgent" required> Urgent
+            <input type="radio" name="referral_type" value="Routine"> Routine
+        </div>
+        <div class="mb-3">
+            <label>Facility</label>
+            <select name="facility" class="form-control" required>
+                <option>Makueni Health Center</option>
+                <option>Kibwezi Subcounty Hospital</option>
+                <option>Machakos Referral Hospital</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Referral</button>
+    </form>
+</div>
+
+{% endblock %}

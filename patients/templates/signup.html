@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+<form method="POST" action="{% url 'signup' %}" class="p-3 mx-auto text-center login_form" style="max-width: 400px; margin-top: auto;">
+  {% csrf_token %}
+  
+  {{ form.as_p }}
+  <br><br>
+  <button type="submit" class="btn btn-secondary" >Register</button>
+</form>
+
+</div>
+
+
+
+
+{% endblock %}

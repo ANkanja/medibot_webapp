@@ -1,6 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+# CHP Profile model
+class CHPProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20)
+    region = models.CharField(max_length=100)
+    facility_assigned = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.user.username
 
 
 
@@ -66,6 +77,7 @@ class LearningMaterial(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='learning/images/', blank=True, null=True)
     material_type = models.CharField(max_length=20, choices=MATERIAL_TYPE_CHOICES)
     video_file = models.FileField(upload_to='learning/videos/', blank=True, null=True)
     document_file = models.FileField(upload_to='learning/documents/', blank=True, null=True)
@@ -87,3 +99,25 @@ class LearningProgress(models.Model):
         return f"{self.user.username} - {self.material.title}"
 
 
+class Referrals(models.Model):
+    REFERRAL_TYPES = [
+        ("urgent", "Urgent Referral"),
+        ("routine", "Routine Referral"),
+    ]
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Completed', 'Completed'),
+    ]
+
+    patient_name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female')])
+    symptoms = models.TextField()
+    referral_type = models.CharField(max_length=10, choices=REFERRAL_TYPES)
+    facility = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    chp = models.ForeignKey(CHPProfile, on_delete=models.CASCADE)    # Link referral to CHP user
+
+    def __str__(self):
+        return f"{self.patient_name} - {self.referral_type}"

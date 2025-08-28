@@ -14,3 +14,14 @@ class LearningMaterialAdmin(admin.ModelAdmin):
 @admin.register(LearningCategory)
 class LearningCategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+# CHPProfile
+class CHPProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "phone", "region", "facility_assigned")
+
+
+# Show referrals in admin
+class ReferralsAdmin(admin.ModelAdmin):
+    list_display = ("patient_name", "facility", "referral_type", "created_at", "chp")
+    list_filter = ("referral_type", "created_at", "chp")
+    search_fields = ("patient_name", "facility", "notes")

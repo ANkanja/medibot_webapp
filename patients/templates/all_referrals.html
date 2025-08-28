@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Referrals Dashboard</h2>
+    <a href="{% url 'new_referral' %}" class="btn btn-primary mb-3">New Referral</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Age</th>
+                <th>Referral Type</th>
+                <th>Facility</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for referral in referrals %}
+            <tr>
+                <td>{{ referral.patient_name }}</td>
+                <td>{{ referral.age }}</td>
+                <td>
+                    {% if referral.referral_type == "Urgent" %}
+                        <span class="badge bg-danger">Urgent</span>
+                    {% elif referral.referral_type == "Routine" %}
+                        <span class="badge bg-warning">Routine</span>
+                    {% endif %}
+                </td>
+                <td>{{ referral.facility }}</td>
+                <td>{{ referral.status }}</td>
+                <td>{{ referral.created_at|date:"M d, Y" }}</td>
+                <td>
+                    <a href="{% url 'notify_facility' referral.id %}" class="btn btn-sm btn-success">Notify Facility</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center">No referrals yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

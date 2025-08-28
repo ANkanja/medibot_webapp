@@ -66,9 +66,16 @@
           <ul>
             <li><a href="{% url 'index' %}">Home<br></a></li>
             <li><a href="{% url 'all_patients' %}">Patients</a></li>
-            <li><a href="{% url 'training' %}">Training</a></li>
+            <li><a href="{% url 'all_referrals' %}">Referrals</a></li>
             <li><a href="#">Reports</a></li>
             <li><a href="#">Diagnosis</a></li>
+            <li><a href="{% url 'training' %}">Training</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
             <li><a href="#contact">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
